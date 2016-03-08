@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+<robot name="wallbot">
+
+
+    <!-- common materials-->
+
+    <material name="black">
+        <color rgba="0 0 0 1"/>
+    </material>
+    <material name="silver">
+        <color rgba="0.5 0.5 0.5 1"/>
+    </material>
+    <material name="white">
+        <color rgba="0.9 0.9 0.9 1"/>
+    </material>
+    <material name="blue">
+        <color rgba="0.5 0.5 1 1"/>
+    </material>
+
+
+    <!-- root link -->
+
+    <link name="chassis">
+        <visual>
+            <geometry>
+                <cylinder length="0.003" radius="0.064"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>
+
+
+    <!-- wheels -->
+
+    <link name="left_wheel">
+        <visual>
+            <origin rpy="1.5708 0 1.5708"/>
+            <geometry>
+                <cylinder length="0.019" radius="0.021"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+
+    <link name="right_wheel">
+        <visual>
+            <origin rpy="1.5708 0 1.5708"/>
+            <material name="black"/>
+            <geometry>
+                <cylinder length="0.019" radius="0.021"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="rwheel_joint" type="continuous">
+        <origin xyz="0.048 0 0.007"/>
+        <parent link="chassis"/>
+        <child link="right_wheel"/>
+        <axis xyz="1 0 0"/>
+    </joint>
+
+    <joint name="lwheel_joint" type="continuous">
+        <origin xyz="-0.048 0 0.007"/>
+        <parent link="chassis"/>
+        <child link="left_wheel"/>
+        <axis xyz="1 0 0"/>
+    </joint>
+
+
+    <!-- top platform -->
+
+    <link name="platform">
+        <visual>
+            <geometry>
+                <cylinder length="0.003" radius="0.064"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>
+
+    <joint name="platform_joint" type="fixed">
+        <origin xyz="0 0 0.032"/>
+        <parent link="chassis"/>
+        <child link="platform"/>
+    </joint>
+
+
+    <!-- servo -->
+
+    <link name="servo">
+        <visual>
+            <geometry>
+                <box size="0.012 0.022 0.025"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+    </link>
+
+    <joint name="servo_joint" type="fixed">
+        <origin xyz="0 0.050 -0.005"/>
+        <parent link="platform"/>
+        <child link="servo"/>
+    </joint>
+
+
+    <!-- sonic sensor -->
+
+    <link name="sensor_pcb">
+        <visual>
+            <geometry>
+                <box size="0.045 0.002 0.020"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+    </link>
+
+    <link name="sensor_left">
+        <visual>
+            <origin rpy="1.5708 0 0" xyz="0 0.0075 0"/>
+            <geometry>
+                <cylinder length="0.013" radius="0.008"/>
+            </geometry>
+            <material name="silver"/>
+        </visual>
+    </link>
+
+    <link name="sensor_right">
+        <visual>
+            <origin rpy="1.5708 0 0" xyz="0 0.0075 0"/>
+            <geometry>
+                <cylinder length="0.013" radius="0.008"/>
+            </geometry>
+            <material name="silver"/>
+        </visual>
+    </link>
+
+    <joint name="sensor_left_joint" type="fixed">
+        <origin xyz="-0.014 0 0"/>
+        <parent link="sensor_pcb"/>
+        <child link="sensor_left"/>
+    </joint>
+
+    <joint name="sensor_right_joint" type="fixed">
+        <origin xyz="0.014 0 0"/>
+        <parent link="sensor_pcb"/>
+        <child link="sensor_right"/>
+    </joint>
+
+    <joint name="sensor_joint" type="revolute">
+        <origin xyz="0 -0.005 0.023"/>
+        <parent link="servo"/>
+        <child link="sensor_pcb"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-1.5708" upper="1.5708" velocity="0.03" effort="0.5"/>
+    </joint>
+
+
+    <!-- Stand offs -->
+
+    <link name="standoff_1">
+        <visual>
+            <origin xyz="0 0 0.016"/>
+            <material name="silver"/>
+            <geometry>
+                <cylinder length="0.032" radius="0.002"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <link name="standoff_2">
+        <visual>
+            <origin xyz="0 0 0.016"/>
+            <material name="silver"/>
+            <geometry>
+                <cylinder length="0.032" radius="0.002"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <link name="standoff_3">
+        <visual>
+            <origin xyz="0 0 0.016"/>
+            <material name="silver"/>
+            <geometry>
+                <cylinder length="0.032" radius="0.002"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <link name="standoff_4">
+        <visual>
+            <origin xyz="0 0 0.016"/>
+            <material name="silver"/>
+            <geometry>
+                <cylinder length="0.032" radius="0.002"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="so1_joint" type="fixed">
+        <origin xyz="0.040 0.040 -0.032"/>
+        <parent link="platform"/>
+        <child link="standoff_1"/>
+    </joint>
+
+    <joint name="so2_joint" type="fixed">
+        <origin xyz="-0.040 0.040 -0.032"/>
+        <parent link="platform"/>
+        <child link="standoff_2"/>
+    </joint>
+
+    <joint name="so3_joint" type="fixed">
+        <origin xyz="0.040 -0.040 -0.032"/>
+        <parent link="platform"/>
+        <child link="standoff_3"/>
+    </joint>
+
+    <joint name="so4_joint" type="fixed">
+        <origin xyz="-0.040 -0.040 -0.032"/>
+        <parent link="platform"/>
+        <child link="standoff_4"/>
+    </joint>
+
+</robot>

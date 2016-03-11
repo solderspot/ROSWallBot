@@ -114,7 +114,7 @@
         </visual>
     </link>
 
-    <link name="sensor_left">
+    <link name="sensor_left_can">
         <visual>
             <origin rpy="1.5708 0 0" xyz="0 0.0075 0"/>
             <geometry>
@@ -124,7 +124,7 @@
         </visual>
     </link>
 
-    <link name="sensor_right">
+    <link name="sensor_right_can">
         <visual>
             <origin rpy="1.5708 0 0" xyz="0 0.0075 0"/>
             <geometry>
@@ -137,13 +137,13 @@
     <joint name="sensor_left_joint" type="fixed">
         <origin xyz="-0.014 0 0"/>
         <parent link="sensor_pcb"/>
-        <child link="sensor_left"/>
+        <child link="sensor_left_can"/>
     </joint>
 
     <joint name="sensor_right_joint" type="fixed">
         <origin xyz="0.014 0 0"/>
         <parent link="sensor_pcb"/>
-        <child link="sensor_right"/>
+        <child link="sensor_right_can"/>
     </joint>
 
     <joint name="sensor_joint" type="revolute">
